@@ -1,0 +1,53 @@
+---
+  - name: create pihole group
+    group:
+      name: "{{ group_pihole }}"
+      state: present
+
+  - name: create pihole user
+    user:
+      name: "{{ user_pihole }}"
+      comment: pihole
+      groups: "{{ group_pihole }}"
+
+  - name: "Download Pi-Hole installer"
+    get_url:
+      url: https://install.pi-hole.net
+      dest: ~/install-pihole.sh
+      mode: 0740
+
+  - name: Create pihole configuration directory
+    become: True
+    file:
+      name: "{{ fspath_pihole_config }}"
+      state: directory
+      owner: "{{ user_pihole }}"
+      group: "{{ group_pihole }}"
+      mode: 0755
+    register: pihole_dir_setup
+
+
+
+  - name: Create pihole configuration
+    become: True
+    template:
+      src: "setupVars.conf.j2"
+      dest: "{{ fspath_pihole_config }}/setupVars.conf"
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Set default DNS
+    become: True
+    template:
+      src: "etc_resolf.conf.j2"
+      dest: "/etc/resolv.conf"
+      owner: root
+      group: root
+      mode: 0644
+
+
+  - name: Install Pi-Hole
+    shell: "~/install-pihole.sh --unattended"
+    when: pihole_dir_setup.changed
+    notify: set Pi-Hole Password

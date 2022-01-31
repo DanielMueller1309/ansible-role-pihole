@@ -1,0 +1,3 @@
+---
+  - name: set Pi-Hole Password
+    shell: "pihole -a -p {{ lookup('keepass', 'pihole_password', 'password') }}"
