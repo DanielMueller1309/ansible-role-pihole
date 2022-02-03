@@ -23,10 +23,8 @@
       state: directory
       owner: "{{ user_pihole }}"
       group: "{{ group_pihole }}"
-      mode: 0755
+      mode: 0775
     register: pihole_dir_setup
-
-
 
   - name: Create pihole configuration
     become: True
@@ -36,6 +34,7 @@
       owner: root
       group: root
       mode: 0644
+    register: pihole_setup_vars
 
   - name: Set default DNS
     become: True
@@ -46,8 +45,21 @@
       group: root
       mode: 0644
 
-
   - name: Install Pi-Hole
     shell: "~/install-pihole.sh --unattended"
-    when: pihole_dir_setup.changed
+    when: pihole_dir_setup.changed or pihole_setup_vars.changed
     notify: set Pi-Hole Password
+
+  - name: show hostnames with hosts(IP)
+    debug:
+      msg: "{{ hostvars[item].ansible_host }}"
+    with_items: "{{ hostvars }}"
+    when: hostvars[item].ansible_host is defined
+
+  - name: add dnsnames
+    template:
+      src: "custom.list.j2"
+      dest: "{{ fspath_pihole_config }}/custom.list"
+      owner: root
+      group: root
+      mode: 0644
