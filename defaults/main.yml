@@ -1,12 +1,7 @@
-
-
-# Source: https://github.com/fheinle/ansible-pihole/blob/master/defaults/main.yml
 user_pihole: "pihole"
 group_pihole: "pihole"
 web_password: "{{ lookup('keepass', 'pihole_password_hash', 'password') }}"
 ipv4_address: 192.168.178.15
-git_repo_web_interface: "https://github.com/pi-hole/AdminLTE.git"
-git_repo_core: "https://github.com/fheinle/pi-hole.git"
 fspath_web_interface: "/var/www/admin"
 fspath_web_directory: "/var/www/pihole"
 fspath_pihole: "/opt/pihole"
