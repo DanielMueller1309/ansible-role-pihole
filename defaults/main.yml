@@ -17,3 +17,11 @@ network_interface: eth0
 dns_servers:
   - "8.8.8.8"
   - "8.8.4.4"
+dns_domain: home
+dhcp_activ: true
+dhcp_start: '192.168.178.20'
+dhcp_end: '192.168.178.200'
+dhcp_router: '192.168.178.1'
+dhcp_leasetime: 24
+dhcp_ipv6: false
+dhcp_rapid: false
