@@ -1,7 +1,7 @@
 user_pihole: "pihole"
 group_pihole: "pihole"
 web_password: "{{ lookup('keepass', 'pihole_password_hash', 'password') }}"
-ipv4_address: 192.168.178.15
+ipv4_address_pihole: 192.168.178.15
 fspath_web_interface: "/var/www/admin"
 fspath_web_directory: "/var/www/pihole"
 fspath_pihole: "/opt/pihole"
