@@ -47,7 +47,7 @@
 
   - name: Install Pi-Hole
     shell: "~/install-pihole.sh --unattended"
-    when: pihole_dir_setup.changed or pihole_setup_vars.changed
+    when: pihole_dir_setup.changed and pihole_setup_vars.changed
     notify: set Pi-Hole Password
 
   - name: show hostnames with hosts(IP)
@@ -63,3 +63,11 @@
       owner: root
       group: root
       mode: 0644
+    register: customlist
+
+  - name: restart pihole after dnsnames added
+    ansible.builtin.systemd:
+      name: pihole-FTL
+      state: restart
+    when: customlist.changed
+
