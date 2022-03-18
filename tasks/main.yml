@@ -63,3 +63,11 @@
       owner: root
       group: root
       mode: 0644
+    register: customlist
+
+  - name: restart pihole after dnsnames added
+    ansible.builtin.systemd:
+      name: pihole-FTL
+      state: restart
+    when: customlist.changed
+
