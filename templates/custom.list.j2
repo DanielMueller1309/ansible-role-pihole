@@ -4,4 +4,6 @@
 {{ hostvars[item].ansible_host }} {{ item }}.{{dns_domain}}
 {% endif %}
 {% endfor %}
-
+{% for item in extra_hosts -%}
+{{ item.ip }} {{ item.hostname }}.{{ item.domain }}
+{% endfor %}
