@@ -34,11 +34,3 @@ dhcp_router: '192.168.178.1'
 dhcp_leasetime: 24
 dhcp_ipv6: false
 ```
-
-
-## Checkliste fuer Rolle
-- [ ] Variablen in Doku
-- [ ] Cron immer als Var
-- [ ] dependencies als Meta
-- [ ] defaults wenn moeglich fuer alle Vars
-- [ ] Beispiel-Playbook
