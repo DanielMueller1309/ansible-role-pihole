@@ -68,6 +68,6 @@
   - name: restart pihole after dnsnames added
     ansible.builtin.systemd:
       name: pihole-FTL
-      state: restart
+      state: restarted
     when: customlist.changed
 
