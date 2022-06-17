@@ -8,6 +8,11 @@ fspath_pihole: "/opt/pihole"
 fspath_pihole_src: "/etc/.pihole"
 fspath_pihole_config: "/etc/pihole"
 
+extra_hosts:
+  - hostname: "fritz"
+    domain: "box"
+    ip: "192.168.178.1"
+
 network_interface: eth0
 dns_servers:
   - "8.8.8.8"
